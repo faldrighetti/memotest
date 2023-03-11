@@ -1,0 +1,22 @@
+{
+  "name": "memotest",
+  "version": "1.0.0",
+  "description": "Juego del memotest para la clase 11 de r/argentina programa",
+  "main": "memotest.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faldrighetti/memotest.git"
+  },
+  "author": "Federico Aldrighetti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/faldrighetti/memotest/issues"
+  },
+  "homepage": "https://github.com/faldrighetti/memotest#readme",
+  "dependencies": {
+    "bootstrap": "^5.2.3"
+  }
+}
