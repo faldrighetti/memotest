@@ -1,0 +1,49 @@
+.tablero{
+    display: flex;
+    justify-content: center;
+}
+
+.ficha{
+    width: 150px;
+    height: 150px;
+    color: black;
+    justify-items: center;
+}
+
+.tapado{
+    background-color: gray;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+.rojo{
+    background-color: red;
+}
+
+.azul{
+    background-color: blue;
+}
+
+.verde{
+    background-color: green;
+}
+
+.amarillo{
+    background-color: yellow;
+}
+
+.violeta{
+    background-color: rgb(163, 4, 163);
+}
+
+.naranja{
+    background-color: orange;
+}
+
+.rosa{
+    background-color: rgb(236, 72, 140);
+}
+
+.celeste{
+    background-color: rgb(28, 194, 194);
+}

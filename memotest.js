@@ -2,10 +2,20 @@
 //Ubicarlas aleatoriamente antes de empezar la partida
 //Asignarles clase tapado y que con el clic se remueva esa clase
 //Si el id de las imágenes cliqueadas coincide, se remueve la clase tapada para esa imagen. Sino, se ocultan.
-//Que al final del juego salga un alert que diga "Volver a jugar" y recargue la página
+//Que al final del juego salga un botón que diga "Volver a jugar" y recargue la página
 
-/* 
+let arrayColores = ['rojo','azul','verde','amarillo','violeta','naranja','rosa','celeste'];
+arrayColores = arrayColores.concat(arrayColores);
+const tablero = document.querySelectorAll('.ficha');
 
+tablero.forEach(element => {
+    let sorteado = Math.floor(Math.random() * arrayColores.length);
+    element.classList.add(arrayColores[sorteado]);
+    arrayColores.splice(sorteado,1);
+    console.log(arrayColores);
+});
+
+/*
 function mezclarFichas(){
     const arrayImagenes = [imagen1, imagen2, ...]
     const arrayJuego = arrayImagenes.concat(arrayImagenes)
@@ -14,7 +24,6 @@ function mezclarFichas(){
 }
 
 function manejarTurno(){
-
 }
 
 function manejarClic(){
@@ -33,5 +42,3 @@ function manejarClic(){
 mezclarFichas()
 manejarTurno()
 */
-let array = [4,5,6]
-console.log(array.concat(array))
