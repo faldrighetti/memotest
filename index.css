@@ -1,19 +1,13 @@
-.tablero{
-    display: flex;
-    justify-content: center;
-}
-
 .ficha{
     width: 150px;
     height: 150px;
-    color: black;
     justify-items: center;
+    border-radius: 3px;
 }
 
 .tapado{
-    background-color: gray;
+    background-color: rgb(165, 161, 161);
     border: 1px solid black;
-    border-radius: 3px;
 }
 
 .rojo{
