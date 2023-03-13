@@ -5,6 +5,7 @@
 //Que al final del juego salga un botón que diga "Volver a jugar" y recargue la página
 
 let rondas = 0;
+let primerCuadro = null;
 let arrayColores = ['rojo','azul','verde','amarillo','violeta','naranja','rosa','celeste'];
 arrayColores = arrayColores.concat(arrayColores);
 const tablero = document.querySelectorAll('.ficha');
@@ -57,12 +58,36 @@ function mostrarColor(cuadro){
 
 function manejarClic(evento){
     const botonOprimido = evento.target;
-    console.log(botonOprimido.id);
+    if (primerCuadro === null){
+        primerCuadro = botonOprimido;
+        mostrarColor(primerCuadro);
+    }
+    else{
+        if(primerCuadro === botonOprimido){
+            return;
+        }
+        rondas++;
+
+        if(primerCuadro.id === botonOprimido.id){
+            primerCuadro.classList.remove('ficha');
+            primerCuadro.classList.add('emparejado');
+            primerCuadro.classList.add(boton1.id);
+            
+            botonOprimido.classList.remove('ficha');
+            botonOprimido.classList.add('emparejado');
+            botonOprimido.classList.add(boton2.id);
+        }
+        else{
+            ocultarTodosLosColores();
+        }
+    }
+    primerCuadro = null;
+    /*console.log(botonOprimido.id);
     mostrarColor(botonOprimido);
     coloresPresionados.push(botonOprimido.id);
     console.log(coloresPresionados.length);
 
-    return botonOprimido.id;
+    return botonOprimido.id;*/
 }
 
 function compararClics(array){
