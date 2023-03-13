@@ -8,13 +8,7 @@ let rondas = 0;
 let arrayColores = ['rojo','azul','verde','amarillo','violeta','naranja','rosa','celeste'];
 arrayColores = arrayColores.concat(arrayColores);
 const tablero = document.querySelectorAll('.ficha');
-
-tablero.forEach(function(ficha){
-    ficha.onclick = manejarClic;
-    if (manejarClic === null){
-        ficha.onclick = manejarClic2;
-    }
-})
+let coloresPresionados = [];
 
 tablero.forEach(element => {
     let sorteado = Math.floor(Math.random() * arrayColores.length);
@@ -25,9 +19,31 @@ tablero.forEach(element => {
     //Con esto el elemento adquiere el id de su color. Cuando se borre la clase,
     //seguirá teniendo el id que lo vincule con el color
 
-    ocultarColor(element, color);
+    ocultarColor(element, color); //Ahora todas las fichas están sin clase color y con clase tapado
     arrayColores.splice(sorteado,1);
 });
+
+function jugar(){
+    manejarTurno();
+    ganarPartida();
+}
+
+function manejarTurno(){
+    tablero.forEach(function(ficha){
+        ficha.onclick = manejarClic;
+    });
+
+    if(coloresPresionados.length === 2){
+        mostrarColor(coloresPresionados[1]);
+        compararClics(coloresPresionados);
+    }   
+}
+
+function ganarPartida(){
+    if (!tablero.length){
+        alert('Ganaste! Te tomó ' + rondas + ' rondas.'); //mejorar esto
+    }
+}
 
 function ocultarColor(cuadro, color){
     cuadro.classList.remove(color);
@@ -40,48 +56,46 @@ function mostrarColor(cuadro){
 }
 
 function manejarClic(evento){
-    let clics = 0;
+    const botonOprimido = evento.target;
+    console.log(botonOprimido.id);
+    mostrarColor(botonOprimido);
+    coloresPresionados.push(botonOprimido.id);
+    console.log(coloresPresionados.length);
 
-    ocultarTodosLosColores();
-    const botonOprimido1 = evento.target;
-    mostrarColor(botonOprimido1);
-    console.log(botonOprimido1.id);
-    clics++;
-    if(clics === 1){
-        manejarClic = null;
-    }
-    console.log(clics)
-    return botonOprimido1.id;
-    //Hay un problema: Sigue permitiendo hacer clics que muestran el color más de una vez
+    return botonOprimido.id;
 }
 
-function manejarClic2(evento, estado = false){
-    if(!estado){
+function compararClics(array){
+    const boton1 = array[0];
+    const boton2 = array[1];
+
+    if (boton1 === boton2){
+        boton1.classList.remove('ficha');
+        boton1.classList.add('emparejado');
+        boton1.classList.add(boton1.id);
+        
+        boton2.classList.remove('ficha');
+        boton2.classList.add('emparejado');
+        boton2.classList.add(boton2.id);
+    } else {
         ocultarTodosLosColores();
-        const botonOprimido2 = evento.target;
-        mostrarColor(botonOprimido2);
-        console.log(botonOprimido2.id + ' segundo');
-        estado = true;
-        return botonOprimido2.id;
     }
+    rondas++;
+    coloresPresionados = [];
 }
-
-//Cuando se encuentre una pareja de fichas, sacarles la clase ficha para que no se oculten luego,
-//y que solo tengan la de su color
-
-//Idea: while disponibles (o sea, no tapados) > 14, manejar clic:
-//const cliqueados = document.querySelectorAll ('.cliqueados'). If cliqueados[0].id === cliqueados[1].id = ganamos.
 
 function ocultarTodosLosColores(){
     tablero.forEach(element => {
         let color = element.id;
-        ocultarColor(element, color);
+        setTimeout(function(){
+            ocultarColor(element, color);
+        },1000);
     });
 }
 
+jugar();
+
 /*
-function manejarTurno(){
-}
 
 function manejarClic(){
     boton.onclick = remover clase tapado
