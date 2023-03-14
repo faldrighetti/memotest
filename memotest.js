@@ -52,18 +52,26 @@ function ocultarColor(cuadro, color){
 }
 
 function mostrarColor(cuadro){
-    cuadro.classList.remove('tapado');
+    //if(cuadro.className.contains('tapado')){
+        cuadro.classList.remove("tapado");
+    //}
     cuadro.classList.add(cuadro.id);
 }
 
-function manejarClic(evento){
+document.querySelector('#tablero').onclick = function(evento){
     const botonOprimido = evento.target;
+    manejarClic(botonOprimido);
+}
+
+function manejarClic(boton){
+    mostrarColor(boton);
     if (primerCuadro === null){
-        primerCuadro = botonOprimido;
+        primerCuadro = boton;
         mostrarColor(primerCuadro);
+        console.log(primerCuadro.id);
     }
     else{
-        if(primerCuadro === botonOprimido){
+        if(primerCuadro === boton){
             return;
         }
         rondas++;
@@ -71,11 +79,13 @@ function manejarClic(evento){
         if(primerCuadro.id === botonOprimido.id){
             primerCuadro.classList.remove('ficha');
             primerCuadro.classList.add('emparejado');
-            primerCuadro.classList.add(boton1.id);
+            primerCuadro.classList.add(primerCuadro.id);
+            console.log(primerCuadro.id);
             
-            botonOprimido.classList.remove('ficha');
-            botonOprimido.classList.add('emparejado');
-            botonOprimido.classList.add(boton2.id);
+            boton.classList.remove('ficha');
+            boton.classList.add('emparejado');
+            boton.classList.add(boton.id);
+            console.log(boton.id);
         }
         else{
             ocultarTodosLosColores();
