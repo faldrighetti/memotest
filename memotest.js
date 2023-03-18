@@ -11,60 +11,46 @@ const tablero = document.querySelectorAll('.ficha');
 let clics = 0;
 let botonesOprimidos = [];
 
-let manejarClic = (evento) => {
-
-    //ocultarTodosLosColores(); //esta función oculta el color y le da la clase tapado a todos los elementos del tablero
-    //Es decir, los que tienen clase ficha
-
-    //Retirar de array para que no se oculte al hacer clic en la segunda ficha.
-    //Si no coinciden, llevarla de vuelta al array. Todo esto removiendo y asignando la clase.
-    //Podría llamar dos o tres veces a la función. La inicial, la del segundo clic (hace lo mismo pero ya sin la 
-    //del primer botón) y una última si no coinciden, para reestablecerlas. 
-
+function manejarClic (evento){
     clics++;
-
-    let botonOprimido1 = evento.target;
-    mostrarColor(botonOprimido1);
-    console.log(botonOprimido1.name);
-    botonOprimido1.classList.replace("ficha", "descubierto");
-    botonesOprimidos.push(botonOprimido1);
+    let botonOprimido = evento.target;
+    mostrarColor(botonOprimido);
+    botonesOprimidos.push(botonOprimido);
 
     if (clics === 2) {
         console.log(botonesOprimidos);
-        if(botonesOprimidos[0].id == botonesOprimidos[1].id){
+        if(botonesOprimidos[0].id == botonesOprimidos[1].id && botonesOprimidos[0].name !== botonesOprimidos[1].name){
             console.log("Encontraste una pareja!!");
-            //Tengo que destapar definitivamente el color encontrado antes de llamar a esta función.
+        
+            destaparPareja(botonesOprimidos[0], botonesOprimidos[1]);
+            let tableroNuevo = Array.from(tablero);
+            tableroNuevo.splice(botonesOprimidos[0],1);
+            tableroNuevo.splice(botonesOprimidos[1],1);
+            console.log(tableroNuevo.length + " length");
+            rondas++;
+                    //Tengo que destapar definitivamente el color encontrado antes de llamar a esta función.
+        } else if(botonesOprimidos[0].name == botonesOprimidos[1].name){
             ocultarTodosLosColores();
-            clics = 0;
-            botonesOprimidos = [];
         } else{
-            ocultarTodosLosColores();
-            clics = 0;
-            botonesOprimidos = [];
+            setTimeout(function(){
+                ocultarTodosLosColores();
+            }, 1000)
         }
+        clics = 0;
+        botonesOprimidos = [];
     }
-
-    /*let botonOprimido2 = evento.target;
-    mostrarColor(botonOprimido2);
-    botonOprimido2 = botonOprimido2.id;
-    console.log(botonOprimido2);*/
-    
-    if(clics === 1){
-        manejarClic = null;
-    }
-    console.log(clics)
-    return botonOprimido1.id;
-    //Hay un problema: Sigue permitiendo hacer clics que muestran el color más de una vez
+    console.log(clics);
 }
 
+function destaparPareja(cuadro1, cuadro2){
+    cuadro1.classList.remove("ficha");
+    cuadro2.classList.remove("ficha");
+    cuadro1.classList.add('descubierto');
+    cuadro2.classList.add('descubierto'); 
+}
 
 tablero.forEach(function(ficha){
-    if (!manejarClic){
-        ficha.onclick = manejarClic2;
-    }
-    else{
-        ficha.onclick = manejarClic; 
-    }
+    ficha.onclick = manejarClic;    
 })
 
 tablero.forEach(element => {
@@ -90,7 +76,6 @@ function mostrarColor(cuadro){
     cuadro.classList.add(cuadro.id);
 }
 
-
 function manejarClic2(evento, estado = false){
     if(!estado){
         ocultarTodosLosColores();
@@ -109,8 +94,7 @@ function descubrirFicha(elemento){
 //Cuando se encuentre una pareja de fichas, sacarles la clase ficha para que no se oculten luego,
 //y que solo tengan la de su color
 
-//Idea: while disponibles (o sea, no tapados) > 14, manejar clic:
-//const cliqueados = document.querySelectorAll ('.cliqueados'). If cliqueados[0].id === cliqueados[1].id = ganamos.
+//Idea: const cliqueados = document.querySelectorAll ('.cliqueados'). If cliqueados[0].id === cliqueados[1].id = ganamos.
 
 function ocultarTodosLosColores(){
     tablero.forEach(element => {
