@@ -1,4 +1,4 @@
-.ficha{
+.ficha, .descubierto{
     width: 150px;
     height: 150px;
     justify-items: center;
@@ -8,6 +8,16 @@
 .tapado{
     background-color: rgb(165, 161, 161);
     border: 1px solid black;
+}
+
+.oculto{
+    display: none;
+}
+
+#resultado{
+    margin: 20px;
+    font-weight: bold;
+    font-size: 60px;
 }
 
 .rojo{
