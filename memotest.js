@@ -21,7 +21,6 @@ function manejarClic (evento){
         console.log(botonesOprimidos);
         if(botonesOprimidos[0].id == botonesOprimidos[1].id && botonesOprimidos[0].name !== botonesOprimidos[1].name){
             console.log("Encontraste una pareja!!");
-        
             destaparPareja(botonesOprimidos[0], botonesOprimidos[1]);
             let tableroNuevo = Array.from(tablero);
             tableroNuevo.splice(botonesOprimidos[0],1);
@@ -32,6 +31,7 @@ function manejarClic (evento){
         } else if(botonesOprimidos[0].name == botonesOprimidos[1].name){
             ocultarTodosLosColores();
         } else{
+            rondas++;
             setTimeout(function(){
                 ocultarTodosLosColores();
             }, 1000)
@@ -98,8 +98,10 @@ function descubrirFicha(elemento){
 
 function ocultarTodosLosColores(){
     tablero.forEach(element => {
-        let color = element.id;
-        ocultarColor(element, color);
+        if(!element.classList.contains('descubierto')){
+            let color = element.id;
+            ocultarColor(element, color);
+        }
     });
 }
 
