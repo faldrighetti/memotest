@@ -27,6 +27,7 @@ function manejarClic (evento){
             tableroNuevo.splice(botonesOprimidos[1],1);
             console.log(tableroNuevo.length + " length");
             rondas++;
+            ganarPartida();
                     //Tengo que destapar definitivamente el color encontrado antes de llamar a esta función.
         } else if(botonesOprimidos[0].name == botonesOprimidos[1].name){
             ocultarTodosLosColores();
@@ -76,17 +77,6 @@ function mostrarColor(cuadro){
     cuadro.classList.add(cuadro.id);
 }
 
-function manejarClic2(evento, estado = false){
-    if(!estado){
-        ocultarTodosLosColores();
-        const botonOprimido2 = evento.target;
-        mostrarColor(botonOprimido2);
-        console.log(botonOprimido2.id + ' segundo');
-        estado = true;
-        return botonOprimido2.id;
-    }
-}
-
 function descubrirFicha(elemento){
     elemento.classList.remove('tapado');
 }
@@ -125,3 +115,10 @@ function manejarClic(){
 mezclarFichas()
 manejarTurno()
 */
+
+function ganarPartida(){
+    let descubiertos = document.querySelectorAll('.descubierto');
+    if(!tablero.length){
+        console.log("Ganaste en " + rondas + " rondas");
+    }
+}
