@@ -4,7 +4,11 @@
   "description": "Juego del memotest para la clase 11 de r/argentina programa",
   "main": "memotest.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "empezar": "http-server",
+    "cypress-run": "cypress run",
+    "cypress-dev": "cypress open",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test-dev": "run-p start cypress-dev"
   },
   "repository": {
     "type": "git",
@@ -18,5 +22,8 @@
   "homepage": "https://github.com/faldrighetti/memotest#readme",
   "dependencies": {
     "bootstrap": "^5.2.3"
+  },
+  "devDependencies": {
+    "cypress": "^12.8.1"
   }
 }
