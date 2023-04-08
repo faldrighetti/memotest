@@ -3,7 +3,7 @@ const URL2 = 'http://192.168.0.23:8081/memotest.html';
 const NUMERO_CUADROS = 16;
 
 context('memotest', () => {
-    before(() => {
+    beforeEach(() => {
         cy.visit(URL);
     });
 
@@ -31,7 +31,7 @@ context('memotest', () => {
             fichasNuevas.push(cuadro.id);
           });
 
-          cy.wrap(fichasOriginales).should('not.deep.equal', fichasNuevas);
+          expect(fichasOriginales).to.not.equal, fichasNuevas;
 
         });
       });
