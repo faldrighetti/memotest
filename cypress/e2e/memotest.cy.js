@@ -7,12 +7,10 @@ context('Configuración inicial', () => {
         cy.visit(URL);
     });
 
-    //Test 1
     it('Se asegura de que haya un tablero con cuadros', () => {     
       cy.get('#tablero').find('.ficha').should('have.length', NUMERO_CUADROS);
     });
 
-    //Test 2
     it('Se asegura de que los cuadros sean aleatorios', () => {
       let fichasOriginales = [];
       let fichasNuevas = [];
@@ -36,27 +34,54 @@ context('Configuración inicial', () => {
         });
       });
     });
+
+    
 });
 
 context('Resolución del juego', () => {
 
-  beforeEach(() => {
+  before(() => {
     cy.visit(URL);
   });
 
-  //Test 3
-  it('Resuelve el juego', () => {
-    
+  let mapaPares, arrayIdPares;
 
+  it('Elige dos fichas no coincidentes', () => {
+    let cuadros = cy.get('.ficha');
+
+    cuadros.then((fichas) => {
+      mapaPares = obtenerMapaDePares(fichas);
+      arrayIdPares = Object.values(mapaPares);
+
+      cy.get(arrayIdPares[0][0]).click();
+      cy.get(arrayIdPares[1][0]).click();
+
+      cy.get('.ficha').should('have.length', NUMERO_CUADROS);
+    })
   });
 
-  //Test 4
-  /*it('HACERSe asegura de que se vean las parejas descubiertas', () => {
-    let cantidadFichas = cy.get('.ficha');
-    let clic1 = cy.get('button').click();
-    cy.get(clic1)
-    let clic2 = cy.get('button').click();
-    cantidadFichas.should('have.length', NUMERO_CUADROS - 2);
-  });*/
+  it('Resuelve el juego', () => {
     
+    arrayIdPares.each((i, par) => {
+      arrayIdPares[0].click();
+      arrayIdPares[1].click();
+    })
+    cy.get('.ficha').should('have.length', 0);
+  });
 })
+
+function obtenerMapaDePares(cuadros){
+  let pares = {};
+
+  cuadros.each((i, elemento) => {
+     const idColor = elemento.id;
+
+     if(pares[idColor]){
+      pares[idColor].push(elemento);
+     } else {
+      pares[idColor] = [elemento];
+     }
+  });
+
+  return pares;
+}
