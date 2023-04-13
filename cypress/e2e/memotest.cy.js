@@ -1,8 +1,8 @@
-const URL = 'http://127.0.0.1:8081/memotest.html';
-const URL2 = 'http://192.168.0.23:8081/memotest.html';
-const NUMERO_CUADROS = 16;
+const URL = 'http://127.0.0.1:8080/memotest.html';
+const URL2 = 'http://192.168.0.23:8080/memotest.html';
+let NUMERO_CUADROS = 16;
 
-context('memotest', () => {
+context('Configuración inicial', () => {
     beforeEach(() => {
         cy.visit(URL);
     });
@@ -36,16 +36,27 @@ context('memotest', () => {
         });
       });
     });
-
-    //Test 3
-    /*it('Se asegura de que se vuelvan a tapar las fichas después de un clic erróneo', () => {
-
-    });*/
-
-
-    //Test 4
-    /*it('Se asegura de que se vean las parejas descubiertas', () => {
-
-    });*/
-  
 });
+
+context('Resolución del juego', () => {
+
+  beforeEach(() => {
+    cy.visit(URL);
+  });
+
+  //Test 3
+  it('Resuelve el juego', () => {
+    
+
+  });
+
+  //Test 4
+  /*it('HACERSe asegura de que se vean las parejas descubiertas', () => {
+    let cantidadFichas = cy.get('.ficha');
+    let clic1 = cy.get('button').click();
+    cy.get(clic1)
+    let clic2 = cy.get('button').click();
+    cantidadFichas.should('have.length', NUMERO_CUADROS - 2);
+  });*/
+    
+})
