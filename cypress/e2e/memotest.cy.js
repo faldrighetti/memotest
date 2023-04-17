@@ -63,7 +63,7 @@ context('Resolución del juego: clic correcto', () => {
   let mapaPares, arrayIdPares;
 
   it('Resuelve el juego', () => {
-    
+    const cantidadRondas = NUMERO_CUADROS / 2;
     cy.get('.ficha').then((fichas) => {
       mapaPares = obtenerMapaDePares(fichas);
       arrayIdPares = Object.values(mapaPares);
@@ -74,6 +74,10 @@ context('Resolución del juego: clic correcto', () => {
       });
 
       cy.get('.ficha').should('have.length', 0);
+
+      cy.get('#tablero').should('not.be.visible');
+      
+      cy.get('#resultado').should('be.visible').contains(`¡Ganaste la partida en ${cantidadRondas} rondas!`)
     });
   });
 });
