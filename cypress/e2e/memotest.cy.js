@@ -34,9 +34,8 @@ context('Configuración inicial', () => {
     });   
 });
 
-context('Resolución del juego', () => {
-
-  beforeEach(() => {
+context('Resolución del juego: clic erróneo', () => {
+  before(() => {
     cy.visit(URL);
   });
 
@@ -48,26 +47,35 @@ context('Resolución del juego', () => {
     cuadros.then((fichas) => {
       mapaPares = obtenerMapaDePares(fichas);
       arrayIdPares = Object.values(mapaPares);
-
       cy.get(arrayIdPares[0][0]).click();
       cy.get(arrayIdPares[1][0]).click();
 
       cy.get('.ficha').should('have.length', NUMERO_CUADROS);
-    }) //ESTE TEST ESTÁ BIEN
+    })
+  });
+});
+
+context('Resolución del juego: clic correcto', () => {
+  before(() => {
+    cy.visit(URL);
   });
 
-  /*it('Resuelve el juego', () => {
+  let mapaPares, arrayIdPares;
+
+  it('Resuelve el juego', () => {
     
-    arrayIdPares.forEach((i, par) => {
-      //cy.get(par[0]).click();
-      //cy.get(par[1]).click();
-      console.log(arrayIdPares[par]);
-      cy.get(arrayIdPares[par][0].click);
-      cy.get(arrayIdPares[par][1].click);
-      
-    })
-    cy.get('.ficha').should('have.length', 0);
-  });*/
+    cy.get('.ficha').then((fichas) => {
+      mapaPares = obtenerMapaDePares(fichas);
+      arrayIdPares = Object.values(mapaPares);
+
+      arrayIdPares.forEach((par) => {
+        cy.get(par[0]).click();
+        cy.get(par[1]).click();
+      });
+
+      cy.get('.ficha').should('have.length', 0);
+    });
+  });
 });
 
 function obtenerMapaDePares(cuadros){
