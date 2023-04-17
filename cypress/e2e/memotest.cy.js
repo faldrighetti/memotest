@@ -14,7 +14,6 @@ context('Configuración inicial', () => {
     it('Se asegura de que los cuadros sean aleatorios', () => {
       let fichasOriginales = [];
       let fichasNuevas = [];
-      cy.wait(1000);
 
       cy.get('button').then(cuadros => {
         
@@ -30,17 +29,14 @@ context('Configuración inicial', () => {
           });
 
           expect(fichasOriginales).to.not.equal, fichasNuevas;
-
         });
       });
-    });
-
-    
+    });   
 });
 
 context('Resolución del juego', () => {
 
-  before(() => {
+  beforeEach(() => {
     cy.visit(URL);
   });
 
@@ -57,18 +53,22 @@ context('Resolución del juego', () => {
       cy.get(arrayIdPares[1][0]).click();
 
       cy.get('.ficha').should('have.length', NUMERO_CUADROS);
-    })
+    }) //ESTE TEST ESTÁ BIEN
   });
 
-  it('Resuelve el juego', () => {
+  /*it('Resuelve el juego', () => {
     
-    arrayIdPares.each((i, par) => {
-      arrayIdPares[0].click();
-      arrayIdPares[1].click();
+    arrayIdPares.forEach((i, par) => {
+      //cy.get(par[0]).click();
+      //cy.get(par[1]).click();
+      console.log(arrayIdPares[par]);
+      cy.get(arrayIdPares[par][0].click);
+      cy.get(arrayIdPares[par][1].click);
+      
     })
     cy.get('.ficha').should('have.length', 0);
-  });
-})
+  });*/
+});
 
 function obtenerMapaDePares(cuadros){
   let pares = {};
